@@ -12,7 +12,7 @@ import { jwtStrategy } from './modules/auth';
 import { authLimiter } from './modules/utils';
 import { ApiError, errorConverter, errorHandler } from './modules/errors';
 import routes from './routes/v1';
-
+import {getNestedMenuItems} from './modules/moduleMaster/module.service'
 const app: Express = express();
 
 if (config.env !== 'test') {
@@ -22,7 +22,9 @@ if (config.env !== 'test') {
 
 // set security HTTP headers
 app.use(helmet());
-
+getNestedMenuItems().then(data=>{
+  console.log("data--",JSON.stringify(data))
+})
 // enable cors
 app.use(cors());
 app.options('*', cors());

@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "app",
+      "name": "Login | MS",
       "script": "dist/index.js",
       "node_args": "--experimental-loader ./loader.js",
       "instances": 1,
