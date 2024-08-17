@@ -1,10 +1,11 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import validator from 'validator';
 import bcrypt from 'bcryptjs';
 import toJSON from '../toJSON/toJSON';
 import paginate from '../paginate/paginate';
 import { roles } from '../../config/roles';
 import { IUserDoc, IUserModel } from './user.interfaces';
+// import { any, object } from 'joi';
 
 const userSchema = new mongoose.Schema<IUserDoc, IUserModel>(
   {
@@ -14,11 +15,12 @@ const userSchema = new mongoose.Schema<IUserDoc, IUserModel>(
       trim: true,
     },
     permission: [{
-      name:{type: String,
+      type: Schema.Types.Mixed,
      
       trim: true,
-      }
+      
     }],
+
     email: {
       type: String,
       required: true,
@@ -43,10 +45,41 @@ const userSchema = new mongoose.Schema<IUserDoc, IUserModel>(
       },
       private: true, // used by the toJSON plugin
     },
-    role: {
-      type: String,
-      enum: roles, //admin,user,student,jobseeker,staff,college,institute,hiringagaency,company,sales,cafe,
-      default: 'user',
+    role: { "id": {
+      type:String},
+      name:{
+        type: String,
+        enum: roles, //admin,user,student,jobseeker,staff,college,institute,hiringagaency,company,sales,cafe,
+        default: 'user'},
+        label:{
+          type: String,
+          enum: roles, //admin,user,student,jobseeker,staff,college,institute,hiringagaency,company,sales,cafe,
+          default: 'user'
+
+        },
+        status:{
+          type: Number,
+         
+          default: 1
+        },
+        order:{
+          type: Number,
+         
+          default: 1
+        },
+        desc:{
+          type: String,
+         
+          default: 'user'
+        }
+
+      
+               
+               
+             
+              
+
+   
     },
     isEmailVerified: {
       type: Boolean,
