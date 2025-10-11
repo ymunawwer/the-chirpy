@@ -14,6 +14,11 @@ const userSchema = new mongoose.Schema<IUserDoc, IUserModel>(
       required: true,
       trim: true,
     },
+    username: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     permission: [{
       type: Schema.Types.Mixed,
      
@@ -88,6 +93,7 @@ const userSchema = new mongoose.Schema<IUserDoc, IUserModel>(
   },
   {
     timestamps: true,
+    strict:false
   }
 );
 

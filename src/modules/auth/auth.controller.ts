@@ -7,6 +7,7 @@ import * as authService from './auth.service';
 import { emailService } from '../email';
 
 export const register = catchAsync(async (req: Request, res: Response) => {
+  console.log(req.body)
   const user = await userService.registerUser(req.body);
   const tokens = await tokenService.generateAuthTokens(user);
   res.status(httpStatus.CREATED).send({ user, tokens });
@@ -24,6 +25,7 @@ export const login = catchAsync(async (req: Request, res: Response) => {
     "data": {
         "user": {
             "id": user.id,  
+            "name": user.name,
             "username": user.name,
             "email": user.email,
             "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/838.jpg",

@@ -1,0 +1,560 @@
+
+
+
+
+            [
+                {
+                    "id": "9100714781927703",
+                    "parentId": "",
+                    "label": "sys.menu.dashboard",
+                    "name": "Dashboard",
+                    "icon": "ic-analysis",
+                    "type": 0,
+                    "route": "dashboard",
+                    "order": 1,
+                    "children": [
+                        {
+                            "id": "8426999229400979",
+                            "parentId": "9100714781927703",
+                            "label": "sys.menu.workbench",
+                            "name": "Workbench",
+                            "type": 1,
+                            "route": "workbench",
+                            "component": "/dashboard/workbench/index.tsx"
+                        },
+                        {
+                            "id": "9710971640510357",
+                            "parentId": "9100714781927703",
+                            "label": "sys.menu.analysis",
+                            "name": "Analysis",
+                            "type": 1,
+                            "route": "analysis",
+                            "component": "/dashboard/analysis/index.tsx"
+                        }
+                    ]
+                },
+                {
+                    "id": "0901673425580518",
+                    "parentId": "",
+                    "label": "sys.menu.management",
+                    "name": "Management",
+                    "icon": "ic-management",
+                    "type": 0,
+                    "route": "management",
+                    "order": 20,
+                    "children": [
+                        {
+                            "id": "2781684678535711",
+                            "parentId": "0901673425580518",
+                            "label": "sys.menu.user.index",
+                            "name": "User",
+                            "type": 0,
+                            "route": "user",
+                            "children": [
+                                {
+                                    "id": "4754063958766648",
+                                    "parentId": "2781684678535711",
+                                    "label": "sys.menu.user.profile",
+                                    "name": "Profile",
+                                    "type": 1,
+                                    "route": "profile",
+                                    "component": "/management/user/profile/index.tsx"
+                                },
+                                {
+                                    "id": "2516598794787938",
+                                    "parentId": "2781684678535711",
+                                    "label": "sys.menu.user.account",
+                                    "name": "Account",
+                                    "type": 1,
+                                    "route": "account",
+                                    "component": "/management/user/account/index.tsx"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0249937641030250",
+                            "parentId": "0901673425580518",
+                            "label": "sys.menu.system.index",
+                            "name": "System",
+                            "type": 0,
+                            "route": "system",
+                            "children": [
+                                {
+                                    "id": "1985890042972842",
+                                    "parentId": "0249937641030250",
+                                    "label": "sys.menu.system.organization",
+                                    "name": "Organization",
+                                    "type": 1,
+                                    "route": "organization",
+                                    "component": "/management/system/organization/index.tsx"
+                                },
+                                {
+                                    "id": "4359580910369984",
+                                    "parentId": "0249937641030250",
+                                    "label": "sys.menu.system.permission",
+                                    "name": "Permission",
+                                    "type": 1,
+                                    "route": "permission",
+                                    "component": "/management/system/permission/index.tsx"
+                                },
+                                {
+                                    "id": "1689241785490759",
+                                    "parentId": "0249937641030250",
+                                    "label": "sys.menu.system.role",
+                                    "name": "Role",
+                                    "type": 1,
+                                    "route": "role",
+                                    "component": "/management/system/role/index.tsx"
+                                },
+                                {
+                                    "id": "0157880245365433",
+                                    "parentId": "0249937641030250",
+                                    "label": "sys.menu.system.user",
+                                    "name": "User",
+                                    "type": 1,
+                                    "route": "user",
+                                    "component": "/management/system/user/index.tsx"
+                                },
+                                {
+                                    "id": "0157880245365434",
+                                    "parentId": "0249937641030250",
+                                    "label": "sys.menu.system.user_detail",
+                                    "name": "User Detail",
+                                    "type": 1,
+                                    "route": "user/:id",
+                                    "component": "/management/system/user/detail.tsx",
+                                    "hide": true
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "94060677855534790",
+                    "parentId": "",
+                    "label": "sys.menu.course",
+                    "name": "Exam",
+                    "icon": "solar:calendar-bold-duotone",
+                    "type": 0,
+                    "route": "course",
+                    "order": 6,
+                    "children": [
+                        {
+                            "id": "85570568519971510",
+                            "parentId": "94060677855534790",
+                            "label": "sys.menu.management",
+                            "name": "Schedule",
+                            "type": 1,
+                            "route": "management",
+                            "component": "/course/management/index.tsx"
+                        },
+                        {
+                            "id": "85570568519971519",
+                            "parentId": "94060677855534790",
+                            "label": "sys.menu.management",
+                            "name": "Bulk",
+                            "type": 1,
+                            "route": "bulk",
+                            "component": "/common/bulk-upload/index.tsx"
+                        },
+                        {
+                            "id": "50956692081590061",
+                            "parentId": "94060677855534790",
+                            "label": "sys.menu.study-material",
+                            "name": "Results",
+                            "type": 1,
+                            "route": "study-material",
+                            "component": "/course/study-material/index.tsx"
+                        },
+                        {
+                            "id": "50956692081590062",
+                            "parentId": "94060677855534790",
+                            "label": "sys.menu.syllabus",
+                            "name": "Management",
+                            "type": 1,
+                            "route": "syllabus",
+                            "component": "/course/syllabus/index.tsx"
+                        }
+                    ]
+                },
+                {
+                    "id": "94060677855534790",
+                    "parentId": "",
+                    "label": "sys.menu.course",
+                    "name": "Grade-Book",
+                    "icon": "solar:calendar-bold-duotone",
+                    "type": 0,
+                    "route": "course",
+                    "order": 6,
+                    "children": [
+                        {
+                            "id": "85570568519971510",
+                            "parentId": "94060677855534790",
+                            "label": "sys.menu.management",
+                            "name": "Calculation",
+                            "type": 1,
+                            "route": "management",
+                            "component": "/course/management/index.tsx"
+                        },
+                        {
+                            "id": "85570568519971519",
+                            "parentId": "94060677855534790",
+                            "label": "sys.menu.management",
+                            "name": "Bulk",
+                            "type": 1,
+                            "route": "bulk",
+                            "component": "/common/bulk-upload/index.tsx"
+                        },
+                        {
+                            "id": "50956692081590061",
+                            "parentId": "94060677855534790",
+                            "label": "sys.menu.study-material",
+                            "name": "Management",
+                            "type": 1,
+                            "route": "study-material",
+                            "component": "/course/study-material/index.tsx"
+                        },
+                        {
+                            "id": "50956692081590062",
+                            "parentId": "94060677855534790",
+                            "label": "sys.menu.syllabus",
+                            "name": "Report Generation",
+                            "type": 1,
+                            "route": "syllabus",
+                            "component": "/course/syllabus/index.tsx"
+                        },
+                        {
+                            "id": "50956692081590062",
+                            "parentId": "94060677855534790",
+                            "label": "sys.menu.syllabus",
+                            "name": "Performace Analytics",
+                            "type": 1,
+                            "route": "syllabus",
+                            "component": "/course/syllabus/index.tsx"
+                        }
+                    ]
+                },
+                {
+                    "id": "9406067785553476",
+                    "parentId": "",
+                    "label": "sys.menu.staff",
+                    "name": "Staff",
+                    "icon": "bxs:error-alt",
+                    "type": 0,
+                    "route": "error",
+                    "order": 6,
+                    "children": [
+                        {
+                            "id": "8557056851997154",
+                            "parentId": "9406067785553476",
+                            "label": "sys.menu.staff",
+                            "name": "403",
+                            "type": 1,
+                            "route": "403",
+                            "component": "/sys/error/Page403.tsx"
+                        },
+                        {
+                            "id": "5095669208159005",
+                            "parentId": "9406067785553476",
+                            "label": "sys.menu.student",
+                            "name": "404",
+                            "type": 1,
+                            "route": "404",
+                            "component": "/sys/error/Page404.tsx"
+                        }
+                    ]
+                },
+                {
+                    "id": "9406067785553476",
+                    "parentId": "",
+                    "label": "sys.menu.student",
+                    "name": "Student",
+                    "icon": "bxs:error-alt",
+                    "type": 0,
+                    "route": "error",
+                    "order": 6,
+                    "children": [
+                        {
+                            "id": "8557056851997154",
+                            "parentId": "9406067785553476",
+                            "label": "sys.menu.staff",
+                            "name": "403",
+                            "type": 1,
+                            "route": "403",
+                            "component": "/sys/error/Page403.tsx"
+                        },
+                        {
+                            "id": "5095669208159005",
+                            "parentId": "9406067785553476",
+                            "label": "sys.menu.student",
+                            "name": "404",
+                            "type": 1,
+                            "route": "404",
+                            "component": "/sys/error/Page404.tsx"
+                        }
+                    ]
+                },
+                {
+                    "id": "9406067785553479",
+                    "parentId": "",
+                    "label": "sys.menu.placement",
+                    "name": "Placement",
+                    "icon": "solar:calendar-bold-duotone",
+                    "type": 0,
+                    "route": "placement",
+                    "order": 6,
+                    "children": [
+                        {
+                            "id": "8557056851997150",
+                            "parentId": "9406067785553479",
+                            "label": "sys.menu.dashboard",
+                            "name": "Dashboard",
+                            "type": 1,
+                            "route": "analysis",
+                            "component": "/placement/dashboard/analysis/index.tsx"
+                        },
+                        {
+                            "id": "85570568519971512",
+                            "parentId": "9406067785553479",
+                            "label": "sys.menu.jobs",
+                            "name": "Job",
+                            "type": 1,
+                            "route": "job1",
+                            "component": "/placement/job/index.tsx"
+                        },
+                        {
+                            "id": "5095669208159006",
+                            "parentId": "9406067785553479",
+                            "label": "sys.menu.management",
+                            "name": "Management",
+                            "type": 1,
+                            "route": "404",
+                            "component": "/placement/dashboard/analysis/index.tsx"
+                        }
+                    ]
+                },
+                {
+                    "id": "94060677855534790",
+                    "parentId": "",
+                    "label": "sys.menu.course",
+                    "name": "Course",
+                    "icon": "solar:calendar-bold-duotone",
+                    "type": 0,
+                    "route": "course",
+                    "order": 6,
+                    "children": [
+                        {
+                            "id": "85570568519971510",
+                            "parentId": "94060677855534790",
+                            "label": "sys.menu.management",
+                            "name": "Management",
+                            "type": 1,
+                            "route": "management",
+                            "component": "/course/management/index.tsx"
+                        },
+                       
+                        {
+                            "id": "50956692081590061",
+                            "parentId": "94060677855534790",
+                            "label": "sys.menu.study-material",
+                            "name": "Study Material",
+                            "type": 1,
+                            "route": "study-material",
+                            "component": "/course/study-material/index.tsx"
+                        },
+                        {
+                            "id": "50956692081590062",
+                            "parentId": "94060677855534790",
+                            "label": "sys.menu.syllabus",
+                            "name": "Syllabus",
+                            "type": 1,
+                            "route": "syllabus",
+                            "component": "/course/syllabus/index.tsx"
+                        }
+                    ]
+                },
+                {
+                    "id": "9406067785553480",
+                    "parentId": "",
+                    "label": "sys.menu.attendance",
+                    "name": "Attendance",
+                    "icon": "bxs:error-alt",
+                    "type": 0,
+                    "route": "attendance",
+                    "order": 6,
+                    "children": [
+                        {
+                            "id": "8557056851997160",
+                            "parentId": "9406067785553480",
+                            "label": "sys.menu.staff",
+                            "name": "Staff",
+                            "type": 1,
+                            "route": "attendance",
+                            "component": "/staff/attendance/index.tsx"
+                        },
+                        {
+                            "id": "5095669208159061",
+                            "parentId": "9406067785553480",
+                            "label": "sys.menu.student",
+                            "name": "Student",
+                            "type": 1,
+                            "route": "student",
+                            "component": "/student/attendacne/index.tsx"
+                        }
+                    ]
+                },
+                {
+                    "id": "3981225257359246",
+                    "parentId": "",
+                    "label": "sys.menu.calendar",
+                    "name": "Calendar",
+                    "icon": "solar:calendar-bold-duotone",
+                    "type": 1,
+                    "route": "calendar",
+                    "component": "/sys/others/calendar/index.tsx"
+                },
+                {
+                    "id": "3981225257359246",
+                    "parentId": "",
+                    "label": "sys.menu.calendar",
+                    "name": "Admission",
+                    "icon": "solar:calendar-bold-duotone",
+                    "type": 1,
+                    "route": "calendar",
+                    "component": "/sys/others/calendar/index.tsx"
+                },
+                {
+                    "id": "3981225257359246",
+                    "parentId": "",
+                    "label": "sys.menu.calendar",
+                    "name": "Fee-Management",
+                    "icon": "solar:calendar-bold-duotone",
+                    "type": 1,
+                    "route": "calendar",
+                    "component": "/sys/others/calendar/index.tsx"
+                },
+                {
+                    "id": "3981225257359246",
+                    "parentId": "",
+                    "label": "sys.menu.calendar",
+                    "name": "Disciplinary-Management",
+                    "icon": "solar:calendar-bold-duotone",
+                    "type": 1,
+                    "route": "calendar",
+                    "component": "/sys/others/calendar/index.tsx"
+                },
+                {
+                    "id": "3981225257359246",
+                    "parentId": "",
+                    "label": "sys.menu.timetable",
+                    "name": "Timetable",
+                    "icon": "solar:calendar-bold-duotone",
+                    "type": 1,
+                    "route": "calendar",
+                    "component": "/sys/others/calendar/index.tsx"
+                },
+                {
+                    "id": "3513985683886393",
+                    "parentId": "",
+                    "label": "sys.menu.kanban",
+                    "name": "kanban",
+                    "icon": "solar:clipboard-bold-duotone",
+                    "type": 1,
+                    "route": "kanban",
+                    "component": "/sys/others/kanban/index.tsx"
+                },
+                {
+                    "id": "3513985683886393",
+                    "parentId": "",
+                    "label": "sys.menu.staff",
+                    "name": "staff",
+                    "icon": "solar:clipboard-bold-duotone",
+                    "type": 1,
+                    "route": "staff",
+                    "component": "/staff/management/index.tsx"
+                },
+                {
+                    "id": "3513985683886393",
+                    "parentId": "",
+                    "label": "sys.menu.student",
+                    "name": "staff",
+                    "icon": "solar:clipboard-bold-duotone",
+                    "type": 1,
+                    "route": "student",
+                    "component": "/student/management/index.tsx"
+                },
+                {
+                    "id": "3513985683886393",
+                    "parentId": "",
+                    "label": "sys.menu.hiring",
+                    "name": "staff",
+                    "icon": "solar:clipboard-bold-duotone",
+                    "type": 1,
+                    "route": "kanban",
+                    "component": "/sys/others/kanban/index.tsx"
+                },
+                {
+                    "id": "5455837930804461",
+                    "parentId": "",
+                    "label": "sys.menu.disabled",
+                    "name": "Disabled",
+                    "icon": "ic_disabled",
+                    "type": 1,
+                    "route": "disabled",
+                    "status": 0,
+                    "component": "/sys/others/calendar/index.tsx"
+                },
+                {
+                    "id": "7728048658221587",
+                    "parentId": "",
+                    "label": "sys.menu.label",
+                    "name": "Label",
+                    "icon": "ic_label",
+                    "type": 1,
+                    "route": "label",
+                    "newFeature": true,
+                    "component": "/sys/others/blank.tsx"
+                },
+                {
+                    "id": "5733704222120995",
+                    "parentId": "",
+                    "label": "sys.menu.frame",
+                    "name": "Frame",
+                    "icon": "ic_external",
+                    "type": 0,
+                    "route": "frame",
+                    "children": [
+                        {
+                            "id": "9884486809510480",
+                            "parentId": "5733704222120995",
+                            "label": "sys.menu.external_link",
+                            "name": "External Link",
+                            "type": 1,
+                            "route": "external_link",
+                            "hideTab": true,
+                            "component": "/sys/others/iframe/external-link.tsx",
+                            "frameSrc": "https://ant.design/"
+                        },
+                        {
+                            "id": "9299640886731819",
+                            "parentId": "5733704222120995",
+                            "label": "sys.menu.iframe",
+                            "name": "Iframe",
+                            "type": 1,
+                            "route": "frame",
+                            "component": "/sys/others/iframe/index.tsx",
+                            "frameSrc": "https://ant.design/"
+                        }
+                    ]
+                },
+                {
+                    "id": "0941594969900756",
+                    "parentId": "",
+                    "label": "sys.menu.blank",
+                    "name": "Disabled",
+                    "icon": "ic_blank",
+                    "type": 1,
+                    "route": "blank",
+                    "component": "/sys/others/blank.tsx"
+                }
+            ]

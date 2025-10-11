@@ -9,6 +9,7 @@ export interface IUser {
   role: any;
   isEmailVerified: boolean;
   permission:any;
+  username:string;
 }
 
 export interface IUserDoc extends IUser, Document {

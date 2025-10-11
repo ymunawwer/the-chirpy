@@ -50,6 +50,7 @@ describe('Auth routes', () => {
         name: faker.name.findName(),
         email: faker.internet.email().toLowerCase(),
         password: 'password1',
+        username:faker.name.findName()
       };
     });
 

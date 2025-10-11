@@ -12,7 +12,8 @@ import { jwtStrategy } from './modules/auth';
 import { authLimiter } from './modules/utils';
 import { ApiError, errorConverter, errorHandler } from './modules/errors';
 import routes from './routes/v1';
-import {getNestedMenuItems} from './modules/moduleMaster/module.service'
+import {getNestedMenuItems} from './modules/moduleMaster/module.service';
+
 const app: Express = express();
 
 if (config.env !== 'test') {
@@ -38,6 +39,7 @@ app.use(express.urlencoded({ extended: true }));
 // sanitize request data
 app.use(xss());
 app.use(ExpressMongoSanitize());
+// app.use(verifyTokenMiddleware())
 
 // gzip compression
 app.use(compression());
@@ -52,7 +54,7 @@ if (config.env === 'production') {
 }
 
 // v1 api routes
-app.use('/v1/lsa', routes);
+app.use('/v1/lsa',routes);
 
 // send back a 404 error for any unknown api request
 app.use((_req, _res, next) => {

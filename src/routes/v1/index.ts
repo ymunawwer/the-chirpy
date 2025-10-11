@@ -3,8 +3,9 @@ import authRoute from './auth.route';
 import docsRoute from './swagger.route';
 import userRoute from './user.route';
 import permissionRoute from './permission.route';
+import licenceRoute from './licence.route';
 import config from '../../config/config';
-
+// import {verifyTokenMiddleware} from '../../modules/auth/test.service';
 const router = express.Router();
 
 interface IRoute {
@@ -24,6 +25,10 @@ const defaultIRoute: IRoute[] = [
   {
     path: '/permission',
     route: permissionRoute,
+  },
+  {
+    path: '/licence',
+    route: licenceRoute,
   },
 ];
 

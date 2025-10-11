@@ -9,6 +9,7 @@ describe('User model', () => {
       newUser = {
         permission:[],
         name: faker.name.findName(),
+        username: faker.name.findName(),
         email: faker.internet.email().toLowerCase(),
         password: 'password1',
         role: 'user',
