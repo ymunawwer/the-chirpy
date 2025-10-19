@@ -88,3 +88,7 @@ export const verifyEmail = catchAsync(async (req: Request, res: Response) => {
   await authService.verifyEmail(req.query['token']);
   res.status(httpStatus.NO_CONTENT).send();
 });
+
+export const validateToken = catchAsync(async (req: Request, res: Response) => {
+  res.status(httpStatus.OK).send({ user: req.user });
+});
