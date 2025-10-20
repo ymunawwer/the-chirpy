@@ -1,14 +1,26 @@
 import Joi from 'joi';
 import { password } from '../validate/custom.validation';
-import { NewRegisteredUser } from '../user/user.interfaces';
+// (types removed) no direct dependency on user interfaces here
 
-const registerBody: Record<keyof NewRegisteredUser, any> = {
-  permission:Joi.any(),
+// Use a general record to avoid tight coupling with interface keys
+const registerBody: Record<string, any> = {
+  permission: Joi.any(),
   email: Joi.string().required().email(),
   password: Joi.string().required().custom(password),
   name: Joi.string().required(),
   username: Joi.string().required(),
-
+  // Optional profile fields
+  firstName: Joi.string(),
+  lastName: Joi.string(),
+  company: Joi.string(),
+  designation: Joi.string(),
+  verificationStatus: Joi.object({
+    email: Joi.boolean(),
+    phone: Joi.boolean(),
+  }),
+  firstActiveOn: Joi.date(),
+  planType: Joi.string(),
+  twoFactorAuthentication: Joi.boolean(),
 };
 
 export const register = {

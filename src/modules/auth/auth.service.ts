@@ -67,7 +67,7 @@ export const resetPassword = async (resetPasswordToken: any, newPassword: string
     if (!user) {
       throw new Error();
     }
-    await updateUserById(user.id, { password: newPassword });
+    await updateUserById(user._id as any, { password: newPassword });
     await Token.deleteMany({ user: user.id, type: tokenTypes.RESET_PASSWORD });
   } catch (error) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Password reset failed');
@@ -87,7 +87,7 @@ export const verifyEmail = async (verifyEmailToken: any): Promise<IUserDoc | nul
       throw new Error();
     }
     await Token.deleteMany({ user: user.id, type: tokenTypes.VERIFY_EMAIL });
-    const updatedUser = await updateUserById(user.id, { isEmailVerified: true });
+    const updatedUser = await updateUserById(user._id as any, { isEmailVerified: true });
     return updatedUser;
   } catch (error) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Email verification failed');
