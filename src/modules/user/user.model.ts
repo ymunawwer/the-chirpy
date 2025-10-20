@@ -90,6 +90,37 @@ const userSchema = new mongoose.Schema<IUserDoc, IUserModel>(
       type: Boolean,
       default: false,
     },
+    firstName: {
+      type: String,
+      trim: true,
+    },
+    lastName: {
+      type: String,
+      trim: true,
+    },
+    company: {
+      type: String,
+      trim: true,
+    },
+    designation: {
+      type: String,
+      trim: true,
+    },
+    verificationStatus: {
+      email: { type: Boolean, default: false },
+      phone: { type: Boolean, default: false },
+    },
+    firstActiveOn: {
+      type: Date,
+    },
+    planType: {
+      type: String,
+      trim: true,
+    },
+    twoFactorAuthentication: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

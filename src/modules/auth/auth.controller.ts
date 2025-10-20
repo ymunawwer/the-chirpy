@@ -17,6 +17,11 @@ export const login = catchAsync(async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const user = await authService.loginUserWithEmailAndPassword(email, password);
   const tokens = await tokenService.generateAuthTokens(user);
+  // Set firstActiveOn on first successful login
+  const effectiveFirstActiveOn = user.firstActiveOn || new Date();
+  if (!user.firstActiveOn) {
+    await userService.updateUserById(user._id as any, { firstActiveOn: effectiveFirstActiveOn });
+  }
   console.log("user--",user)
   console.log("token--",tokens)
   let data = {
@@ -32,6 +37,14 @@ export const login = catchAsync(async (req: Request, res: Response) => {
             "createdAt": "2024-06-14T03:40:50.660Z",
             "updatedAt": "2024-06-21T13:52:42.140Z",
             "password": "demo1234",
+            "firstName": user.firstName,
+            "lastName": user.lastName,
+            "company": user.company,
+            "designation": user.designation,
+            "verificationStatus": user.verificationStatus,
+            "firstActiveOn": effectiveFirstActiveOn,
+            "planType": user.planType,
+            "twoFactorAuthentication": user.twoFactorAuthentication,
             "role": {
                 // "id": "4281707933534332",
                 // "name": "Admin",

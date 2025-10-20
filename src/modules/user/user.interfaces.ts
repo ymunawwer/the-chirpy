@@ -10,9 +10,19 @@ export interface IUser {
   isEmailVerified: boolean;
   permission:any;
   username:string;
+  firstName?: string;
+  lastName?: string;
+  company?: string;
+  designation?: string;
+  verificationStatus?: { email?: boolean; phone?: boolean };
+  firstActiveOn?: Date;
+  planType?: string;
+  twoFactorAuthentication?: boolean;
 }
 
 export interface IUserDoc extends IUser, Document {
+  _id: mongoose.Types.ObjectId;
+  id: string; // virtual getter from Mongoose Document
   isPasswordMatch(password: string): Promise<boolean>;
 }
 
