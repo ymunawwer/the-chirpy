@@ -22,6 +22,29 @@ export const loginUserWithEmailAndPassword = async (email: string, password: str
 };
 
 /**
+ * Change password for an authenticated user
+ * @param {mongoose.Types.ObjectId} userId
+ * @param {string} oldPassword
+ * @param {string} newPassword
+ * @returns {Promise<void>}
+ */
+export const changePassword = async (
+  userId: mongoose.Types.ObjectId,
+  oldPassword: string,
+  newPassword: string
+): Promise<void> => {
+  const user = await getUserById(userId);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+  const matches = await user.isPasswordMatch(oldPassword);
+  if (!matches) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect old password');
+  }
+  await updateUserById(userId, { password: newPassword });
+};
+
+/**
  * Logout
  * @param {string} refreshToken
  * @returns {Promise<void>}

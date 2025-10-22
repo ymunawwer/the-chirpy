@@ -36,7 +36,7 @@ export const login = catchAsync(async (req: Request, res: Response) => {
             "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/838.jpg",
             "createdAt": "2024-06-14T03:40:50.660Z",
             "updatedAt": "2024-06-21T13:52:42.140Z",
-            "password": "demo1234",
+            // "password": "demo1234",
             "firstName": user.firstName,
             "lastName": user.lastName,
             "company": user.company,
@@ -104,4 +104,12 @@ export const verifyEmail = catchAsync(async (req: Request, res: Response) => {
 
 export const validateToken = catchAsync(async (req: Request, res: Response) => {
   res.status(httpStatus.OK).send({ user: req.user });
+});
+
+export const changePassword = catchAsync(async (req: Request, res: Response) => {
+  // Expecting oldPassword and newPassword in body, and authenticated user from auth middleware
+  const { oldPassword, newPassword } = req.body as { oldPassword: string; newPassword: string };
+  const userId = (req.user as any)?._id;
+  await authService.changePassword(userId, oldPassword, newPassword);
+  res.status(httpStatus.NO_CONTENT).send();
 });

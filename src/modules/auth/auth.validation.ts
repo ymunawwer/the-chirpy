@@ -66,3 +66,10 @@ export const verifyEmail = {
     token: Joi.string().required(),
   }),
 };
+
+export const changePassword = {
+  body: Joi.object().keys({
+    oldPassword: Joi.string().required(),
+    newPassword: Joi.string().required().custom(password),
+  }),
+};
