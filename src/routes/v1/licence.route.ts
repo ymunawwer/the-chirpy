@@ -1,5 +1,6 @@
 import express from 'express';
-import * as licenseController from '../../modules/licence/licence.controller';
+import * as licenceController from '../../modules/licence/licence.controller';
+import { auth } from '../../modules/auth';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
@@ -215,11 +216,24 @@ router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *       400:
  *         description: Error validating license key
  */
-router.post('/create', licenseController.createLicense);
-router.post('/activate', licenseController.activateLicense);
-router.post('/renew', licenseController.renewLicense);
-router.post('/revoke', licenseController.revokeLicense);
-router.get('/validate', licenseController.validateLicenseKey, (req, res) => {
+// RESTful routes
+router.get('/', licenceController.list);
+router.get('/active', licenceController.getActive);
+router.get('/user/:userId', licenceController.getByUser);
+router.get('/:licenseId', licenceController.get);
+router.post('/', licenceController.create);
+router.post('/me', auth(), licenceController.createForAuth);
+router.patch('/:licenseId', licenceController.update);
+router.delete('/:licenseId', licenceController.remove);
+router.post('/:licenseId/activate', licenceController.activate);
+router.post('/:licenseId/deactivate', licenceController.deactivate);
+
+// Backward-compatible key-based routes
+router.post('/create', licenceController.createLicense);
+router.post('/activate', licenceController.activateLicense);
+router.post('/renew', licenceController.renewLicense);
+router.post('/revoke', licenceController.revokeLicense);
+router.get('/validate', licenceController.validateLicenseKey, (req, res) => {
     res.status(200).json({ message: 'License key is valid', license: req.body.license });
 });
 
