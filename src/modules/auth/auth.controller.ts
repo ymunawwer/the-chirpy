@@ -5,10 +5,11 @@ import { tokenService } from '../token';
 import { userService } from '../user';
 import * as authService from './auth.service';
 import { emailService } from '../email';
+import {generateUserCode} from '../utils'
 
 export const register = catchAsync(async (req: Request, res: Response) => {
   console.log(req.body)
-  const user = await userService.registerUser(req.body);
+  const user = await userService.registerUser({...req.body,tenantId: 1,company:generateUserCode()});
   const tokens = await tokenService.generateAuthTokens(user);
   res.status(httpStatus.CREATED).send({ user, tokens });
 });
