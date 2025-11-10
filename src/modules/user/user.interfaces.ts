@@ -13,6 +13,7 @@ export interface IUser {
   firstName?: string;
   lastName?: string;
   company?: string;
+  tenantId?: string;
   designation?: string;
   verificationStatus?: { email?: boolean; phone?: boolean };
   firstActiveOn?: Date;

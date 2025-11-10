@@ -102,6 +102,10 @@ const userSchema = new mongoose.Schema<IUserDoc, IUserModel>(
       type: String,
       trim: true,
     },
+    tenantId: {
+      type: String,
+      trim: true,
+    },
     designation: {
       type: String,
       trim: true,
