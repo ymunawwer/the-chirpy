@@ -83,7 +83,7 @@ export const refreshTokens = catchAsync(async (req: Request, res: Response) => {
 
 export const forgotPassword = catchAsync(async (req: Request, res: Response) => {
   const resetPasswordToken = await tokenService.generateResetPasswordToken(req.body.email);
-  await emailService.sendResetPasswordEmail(req.body.email, resetPasswordToken);
+  await emailService.sendResetPasswordEmail(req.body.email, resetPasswordToken, "weirdMe");
   res.status(httpStatus.NO_CONTENT).send();
 });
 
@@ -104,6 +104,13 @@ export const verifyEmail = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const validateToken = catchAsync(async (req: Request, res: Response) => {
+  res.setHeader('X-User-TenantId', req.user.tenantId || '');
+  res.setHeader('X-User-Id', JSON.stringify(req.user._id) || '');
+  res.setHeader('X-User-OrganizationId', req.user.organizationId || '');
+  res.setHeader('X-User-Company', req.user.company || '');
+  res.setHeader('X-User-Email', req.user.email || '');
+  res.setHeader('X-User-Role', req.user.role || '');
+  res.setHeader('X-User-Permissions', JSON.stringify(req.user.permissions || []));
   res.status(httpStatus.OK).send({ user: req.user });
 });
 

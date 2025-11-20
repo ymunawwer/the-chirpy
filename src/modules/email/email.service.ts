@@ -2,6 +2,7 @@ import nodemailer from 'nodemailer';
 import config from '../../config/config';
 import logger from '../logger/logger';
 import { Message } from './email.interfaces';
+import axios from "axios";
 
 export const transport = nodemailer.createTransport(config.email.smtp);
 /* istanbul ignore next */
@@ -37,19 +38,45 @@ export const sendEmail = async (to: string, subject: string, text: string, html:
  * @param {string} token
  * @returns {Promise<void>}
  */
-export const sendResetPasswordEmail = async (to: string, token: string): Promise<void> => {
-  const subject = 'Reset password';
-  // replace this url with the link to the reset password page of your front-end app
+export const sendResetPasswordEmail = async (to: string, token: string, appName: string="weirdMe"): Promise<void> => {
+  // const subject = 'Reset password';
+  // // replace this url with the link to the reset password page of your front-end app
+  // const resetPasswordUrl = `http://${config.clientUrl}/reset-password?token=${token}`;
+  // const text = `Hi,
+  // To reset your password, click on this link: ${resetPasswordUrl}
+  // If you did not request any password resets, then ignore this email.`;
+  // const html = `<div style="margin:30px; padding:30px; border:1px solid black; border-radius: 20px 10px;"><h4><strong>Dear user,</strong></h4>
+  // <p>To reset your password, click on this link: ${resetPasswordUrl}</p>
+  // <p>If you did not request any password resets, please ignore this email.</p>
+  // <p>Thanks,</p>
+  // <p><strong>Team</strong></p></div>`;
+  // await sendEmail(to, subject, text, html);
+
+  // Dynamic reset link
   const resetPasswordUrl = `http://${config.clientUrl}/reset-password?token=${token}`;
-  const text = `Hi,
-  To reset your password, click on this link: ${resetPasswordUrl}
-  If you did not request any password resets, then ignore this email.`;
-  const html = `<div style="margin:30px; padding:30px; border:1px solid black; border-radius: 20px 10px;"><h4><strong>Dear user,</strong></h4>
-  <p>To reset your password, click on this link: ${resetPasswordUrl}</p>
-  <p>If you did not request any password resets, please ignore this email.</p>
-  <p>Thanks,</p>
-  <p><strong>Team</strong></p></div>`;
+
+  // Fetch template from Config Master microservice
+  const { data: template } = await axios.get(
+    "http://localhost:3006/v1/config/weirdMe/templates/forgot_password"
+    //`${config.clientUrl}/v1/config/${appName}/template/forgot_password`
+  );
+
+  // Extract subject + body from template
+  let subject = template.subject || "Reset Your Password";
+  let html = template.body;
+
+  // Replace placeholders in template
+  html = html
+    .replace(/{{resetUrl}}/g, resetPasswordUrl)
+    .replace(/{{email}}/g, to)
+    .replace(/{{appName}}/g, appName);
+
+  // Fallback text version
+  const text = `To reset your password, click here: ${resetPasswordUrl}`;
+
+  // Send email
   await sendEmail(to, subject, text, html);
+
 };
 
 /**
