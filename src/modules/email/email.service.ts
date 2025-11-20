@@ -3,6 +3,7 @@ import config from '../../config/config';
 import logger from '../logger/logger';
 import { Message } from './email.interfaces';
 import axios from "axios";
+import { unescapeHtml } from '../utils/escapeHtml.js';
 
 export const transport = nodemailer.createTransport(config.email.smtp);
 /* istanbul ignore next */
@@ -22,6 +23,7 @@ if (config.env !== 'test') {
  * @returns {Promise<void>}
  */
 export const sendEmail = async (to: string, subject: string, text: string, html: string): Promise<void> => {
+  html = unescapeHtml(html);
   const msg: Message = {
     from: config.email.from,
     to,
