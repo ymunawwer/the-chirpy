@@ -19,6 +19,8 @@ export interface IUser {
   firstActiveOn?: Date;
   planType?: string;
   twoFactorAuthentication?: boolean;
+  organizationId?: string;
+  permissions?: string[];
 }
 
 export interface IUserDoc extends IUser, Document {

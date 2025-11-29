@@ -21,6 +21,8 @@ const envVarsSchema = Joi.object()
     SMTP_PASSWORD: Joi.string().description('password for email server'),
     EMAIL_FROM: Joi.string().description('the from field in the emails sent by the app'),
     CLIENT_URL: Joi.string().required().description('Client url'),
+    ACHARYA_WORKFLOW_URL: Joi.string().uri().description('Acharya workflow execute URL'),
+    ACHARYA_BEARER_TOKEN: Joi.string().description('Acharya workflow Bearer token'),
   })
   .unknown();
 
@@ -65,6 +67,10 @@ const config = {
     from: envVars.EMAIL_FROM,
   },
   clientUrl: envVars.CLIENT_URL,
+  acharya: {
+    workflowUrl: envVars.ACHARYA_WORKFLOW_URL,
+    bearerToken: envVars.ACHARYA_BEARER_TOKEN,
+  },
 };
 
 export default config;

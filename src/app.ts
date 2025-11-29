@@ -27,8 +27,14 @@ getNestedMenuItems().then(data=>{
   console.log("data--",JSON.stringify(data))
 })
 // enable cors
-app.use(cors());
-app.options('*', cors());
+const corsOptions = {
+  origin: config.clientUrl,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // parse json request body
 app.use(express.json());
