@@ -15,6 +15,7 @@ export interface ExecuteWorkflowParams {
   to: string;
   data?: string;
   agentId: string;
+  logId?: string;
 }
 
 export interface ExecuteWorkflowResult {
@@ -22,13 +23,12 @@ export interface ExecuteWorkflowResult {
   externalResponse: any;
 }
 
-export const executeWorkflow = async ({ to, data = '', agentId }: ExecuteWorkflowParams): Promise<ExecuteWorkflowResult> => {
+export const executeWorkflow = async ({ to, data = '', agentId, logId }: ExecuteWorkflowParams): Promise<ExecuteWorkflowResult> => {
   if (!ACHARYA_WORKFLOW_URL || !ACHARYA_WORKFLOW_LICENCE || !agentId) {
     throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Acharya workflow configuration missing');
   }
 
-
-  const URL = `${ACHARYA_WORKFLOW_URL}/workflows/${agentId}/execute`
+  const URL = `${ACHARYA_WORKFLOW_URL}/workflows/${agentId}/execute`;
 
   const payload = {
     payload: {
@@ -37,12 +37,31 @@ export const executeWorkflow = async ({ to, data = '', agentId }: ExecuteWorkflo
     },
   };
 
-  const log = await AcharyaLog.create({
-    to,
-    data,
-    payload,
-    status: 'pending',
-  });
+  let log: IAcharyaLog;
+
+  if (logId) {
+    const existing = await AcharyaLog.findById(logId);
+    if (existing) {
+      existing.payload = payload as any;
+      existing.status = 'pending';
+      await existing.save();
+      log = existing;
+    } else {
+      log = await AcharyaLog.create({
+        to,
+        data,
+        payload,
+        status: 'pending',
+      });
+    }
+  } else {
+    log = await AcharyaLog.create({
+      to,
+      data,
+      payload,
+      status: 'pending',
+    });
+  }
 
   try {
     const response = await axios.post(URL, payload, {
@@ -70,6 +89,29 @@ export const executeWorkflow = async ({ to, data = '', agentId }: ExecuteWorkflo
 
     throw new ApiError(status || httpStatus.BAD_GATEWAY, 'Failed to execute Acharya workflow');
   }
+};
+
+export const createPendingExecutionLog = async ({ to, data = '', agentId }: ExecuteWorkflowParams): Promise<IAcharyaLog> => {
+  const payload = {
+    payload: {
+      to,
+      data,
+      agentId,
+    },
+  };
+
+  const log = await AcharyaLog.create({
+    to,
+    data,
+    payload,
+    status: 'pending',
+  });
+
+  return log;
+};
+
+export const getExecutionStatusById = async (logId: string): Promise<IAcharyaLog | null> => {
+  return AcharyaLog.findById(logId);
 };
 
 

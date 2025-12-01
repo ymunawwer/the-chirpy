@@ -197,4 +197,25 @@ router.get('/workflows/cards', acharyaController.listWorkflowCards);
 router.get('/workflows', acharyaController.listWorkflows);
 router.post('/workflows', acharyaController.createWorkflow);
 
+/**
+ * @swagger
+ * /v1/acharya/status/{logId}:
+ *   get:
+ *     summary: Get execution status by logId
+ *     tags: [Acharya]
+ *     parameters:
+ *       - in: path
+ *         name: logId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: AcharyaLog MongoDB id returned from execute endpoint
+ *     responses:
+ *       200:
+ *         description: Execution status retrieved
+ *       404:
+ *         description: Execution not found
+ */
+router.get('/status/:logId', acharyaController.getExecutionStatus);
+
 export default router;

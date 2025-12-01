@@ -11,6 +11,18 @@
       "env": {
         "NODE_ENV": "production"
       }
+    },
+  {
+      "name": "Acharya Kafka | Worker",
+      "script": "dist/workers/acharya.worker.js",
+      "node_args": "--experimental-loader ./loader.js",   
+      "instances": 1,
+      "autorestart": true,
+      "watch": false,
+      "time": true,
+      "env": {
+        "NODE_ENV": "production"
+      }
     }
   ]
 }

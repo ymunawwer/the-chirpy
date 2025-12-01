@@ -21,6 +21,8 @@ const envVarsSchema = Joi.object()
     SMTP_PASSWORD: Joi.string().description('password for email server'),
     EMAIL_FROM: Joi.string().description('the from field in the emails sent by the app'),
     CLIENT_URL: Joi.string().required().description('Client url'),
+    KAFKA_BROKERS: Joi.string().description('Comma-separated list of Kafka brokers'),
+    KAFKA_ACHARYA_EXECUTE_TOPIC: Joi.string().default('acharya-execute').description('Kafka topic for Acharya execute workflow'),
     ACHARYA_WORKFLOW_URL: Joi.string().uri().description('Acharya workflow execute URL'),
     ACHARYA_BEARER_TOKEN: Joi.string().description('Acharya workflow Bearer token'),
   })
@@ -70,6 +72,10 @@ const config = {
   acharya: {
     workflowUrl: envVars.ACHARYA_WORKFLOW_URL,
     bearerToken: envVars.ACHARYA_BEARER_TOKEN,
+  },
+  kafka: {
+    brokers: envVars.KAFKA_BROKERS ? (envVars.KAFKA_BROKERS as string).split(',') : undefined,
+    acharyaExecuteTopic: envVars.KAFKA_ACHARYA_EXECUTE_TOPIC,
   },
 };
 

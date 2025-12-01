@@ -2,16 +2,33 @@ import httpStatus from 'http-status';
 import { Request, Response } from 'express';
 import catchAsync from '../utils/catchAsync';
 import * as acharyaService from './acharya.service';
+import { getAcharyaProducer, acharyaExecuteTopic } from './acharya.kafka';
 
 export const execute = catchAsync(async (req: Request, res: Response) => {
   const { to, data, agentId } = req.body as { to: string; data?: string; agentId: string };
+  const producer = await getAcharyaProducer();
 
-  const result = await acharyaService.executeWorkflow({ to, data, agentId } as any);
+  if (!producer) {
+    const result = await acharyaService.executeWorkflow({ to, data, agentId } as any);
+    return res.status(httpStatus.OK).json({
+      message: 'acharya_workflow_executed',
+      logId: result.log._id,
+      externalResponse: result.externalResponse,
+    });
+  }
 
-  return res.status(httpStatus.OK).json({
-    message: 'acharya_workflow_executed',
-    logId: result.log._id,
-    externalResponse: result.externalResponse,
+  const pendingLog = await acharyaService.createPendingExecutionLog({ to, data, agentId } as any);
+
+  const payload = { to, data, agentId, logId: String(pendingLog._id) };
+
+  await producer.send({
+    topic: acharyaExecuteTopic,
+    messages: [{ value: JSON.stringify(payload) }],
+  });
+
+  return res.status(httpStatus.ACCEPTED).json({
+    message: 'acharya_workflow_queued',
+    logId: pendingLog._id,
   });
 });
 
@@ -48,5 +65,26 @@ export const listWorkflows = catchAsync(async (req: Request, res: Response) => {
 export const createWorkflow = catchAsync(async (req: Request, res: Response) => {
   const data = await acharyaService.createWorkflow(req.body);
   return res.status(httpStatus.CREATED).json({ message: 'acharya_workflow_created', data });
+});
+
+export const getExecutionStatus = catchAsync(async (req: Request, res: Response) => {
+  const { logId } = req.params as { logId: string };
+  const log = await acharyaService.getExecutionStatusById(logId);
+
+  if (!log) {
+    return res.status(httpStatus.NOT_FOUND).json({ message: 'acharya_execution_not_found' });
+  }
+
+  return res.status(httpStatus.OK).json({
+    message: 'acharya_execution_status',
+    data: {
+      id: log._id,
+      status: log.status,
+      responseStatus: log.responseStatus,
+      errorMessage: log.errorMessage,
+      createdAt: log.createdAt,
+      updatedAt: log.updatedAt,
+    },
+  });
 });
 
