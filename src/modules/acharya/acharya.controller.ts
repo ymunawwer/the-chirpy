@@ -32,6 +32,67 @@ export const execute = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+export const bulkExecute = catchAsync(async (req: Request, res: Response) => {
+  const { agentId, customer } = req.body as {
+    agentId: string;
+    customer: { to: string; data?: string }[];
+  };
+
+  const producer = await getAcharyaProducer();
+
+  // If Kafka is not configured, fall back to direct sequential execution
+  if (!producer) {
+    const results = [] as { to: string; logId: string; status: string }[];
+
+    for (const c of customer) {
+      console.log(c);
+      const result = await acharyaService.executeWorkflow({
+        to: c.to,
+        data: c.data,
+        agentId,
+      } as any);
+      results.push({ to: c.to, logId: String(result.log._id), status: result.log.status });
+    }
+
+    return res.status(httpStatus.OK).json({
+      message: 'acharya_bulk_workflow_executed',
+      data: results,
+    });
+  }
+
+  const logEntries: { to: string; logId: string }[] = [];
+  const messages = [] as { value: string }[];
+
+  for (const c of customer) {
+    const pendingLog = await acharyaService.createPendingExecutionLog({
+      to: c.to,
+      data: c.data,
+      agentId,
+    } as any);
+
+    logEntries.push({ to: c.to, logId: String(pendingLog._id) });
+
+    messages.push({
+      value: JSON.stringify({
+        to: c.to,
+        data: c.data,
+        agentId,
+        logId: String(pendingLog._id),
+      }),
+    });
+  }
+
+  await producer.send({
+    topic: acharyaExecuteTopic,
+    messages,
+  });
+
+  return res.status(httpStatus.ACCEPTED).json({
+    message: 'acharya_bulk_workflow_queued',
+    data: logEntries,
+  });
+});
+
 export const getWorkflow = catchAsync(async (req: Request, res: Response) => {
   const { workflowId } = req.params as { workflowId: string };
   const data = await acharyaService.getWorkflow(workflowId);
