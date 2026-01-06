@@ -37,12 +37,12 @@ export const queryCallLogs = async (
 ): Promise<QueryResult> => {
   const normalizedFilter: Record<string, any> = { ...filter };
 
-  if (normalizedFilter.eventId && typeof normalizedFilter.eventId === 'string') {
-    normalizedFilter.eventId = new mongoose.Types.ObjectId(normalizedFilter.eventId);
+  if (normalizedFilter["eventId"] && typeof normalizedFilter["eventId"] === 'string') {
+    normalizedFilter["eventId"] = new mongoose.Types.ObjectId(normalizedFilter["eventId"]);
   }
 
-  if (normalizedFilter.contactId && typeof normalizedFilter.contactId === 'string') {
-    normalizedFilter.contactId = new mongoose.Types.ObjectId(normalizedFilter.contactId);
+  if (normalizedFilter["contactId"] && typeof normalizedFilter["contactId"] === 'string') {
+    normalizedFilter["contactId"] = new mongoose.Types.ObjectId(normalizedFilter["contactId"]);
   }
 
   const logs = await (CallLog as any).paginate
