@@ -29,6 +29,24 @@ const router = express.Router();
  *         agentId:
  *           type: string
  *           description: Workflow ID to execute
+ *     AcharyaBulkExecuteRequest:
+ *       type: object
+ *       required:
+ *         - agentId
+ *         - customer
+ *       properties:
+ *         agentId:
+ *           type: string
+ *           description: Workflow ID to execute
+ *         customer:
+ *           type: array
+ *           items:
+ *             type: object
+ *             properties:
+ *               to:
+ *                 type: string
+ *               data:
+ *                 type: string
  *     AcharyaWorkflow:
  *       type: object
  *       description: Generic Acharya workflow representation (proxied from Acharya Engine)
@@ -71,6 +89,28 @@ const router = express.Router();
  *         description: Acharya workflow configuration missing or execution failed
  */
 router.post('/execute', acharyaController.execute);
+
+/**
+ * @swagger
+ * /v1/acharya/execute/bulk:
+ *   post:
+ *     summary: Execute an Acharya workflow for multiple customers (bulk)
+ *     tags: [Acharya]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/AcharyaBulkExecuteRequest'
+ *     responses:
+ *       200:
+ *         description: Bulk workflows executed (when Kafka is disabled)
+ *       202:
+ *         description: Bulk workflows queued for execution (when Kafka is enabled)
+ *       500:
+ *         description: Acharya workflow configuration missing or execution failed
+ */
+router.post('/execute/bulk', acharyaController.bulkExecute);
 
 /**
  * @swagger

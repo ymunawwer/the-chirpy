@@ -6,6 +6,9 @@ import permissionRoute from './permission.route';
 import licenceRoute from './licence.route';
 import config from '../../config/config';
 import acharyaRoute from './acharya.route';
+import contactsRoute from './contacts.route';
+import eventsRoute from './events.route';
+import callLogsRoute from './callLogs.route';
 // import {verifyTokenMiddleware} from '../../modules/auth/test.service';
 const router = express.Router();
 
@@ -34,6 +37,18 @@ const defaultIRoute: IRoute[] = [
   {
     path: '/acharya',
     route: acharyaRoute,
+  },
+  {
+    path: '/contacts',
+    route: contactsRoute,
+  },
+  {
+    path: '/events',
+    route: eventsRoute,
+  },
+  {
+    path: '/call-logs',
+    route: callLogsRoute,
   },
 ];
 
